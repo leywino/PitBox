@@ -1,19 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pit_box/core/icons/box_icon_icons.dart';
+import 'package:pit_box/features/feed_section/domain/entities/load_news_details.dart';
 import 'package:pit_box/utils/widgets/app_bar_widget.dart';
 import '../widgets/load_news_details.dart';
 
 class NewsDetailedScreen extends StatelessWidget {
-  const NewsDetailedScreen(
-      {super.key,
-      required this.headLine,
-      required this.imageUrl,
-      required this.articleLink});
+  NewsDetailedScreen({
+    super.key,
+    required this.headLine,
+    required this.imageUrl,
+    required this.articleLink,
+    required this.index,
+    required this.alreadyLoaded,
+    required this.onUpdate,
+    this.matchingNewsDetails,
+  });
 
   final String headLine;
   final String imageUrl;
   final String articleLink;
+  final int index;
+  final bool alreadyLoaded;
+  final VoidCallback onUpdate;
+  LoadNewsDetails? matchingNewsDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +64,10 @@ class NewsDetailedScreen extends StatelessWidget {
               LoadNewsDetailsWidget(
                 headLine: headLine,
                 articleLink: articleLink,
+                index: index,
+                alreadyLoaded: alreadyLoaded,
+                onUpdate: onUpdate,
+                matchingNewsDetails: matchingNewsDetails,
               ),
             ],
           ),

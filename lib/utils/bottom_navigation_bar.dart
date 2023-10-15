@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pit_box/core/constant/colors.dart';
@@ -40,15 +38,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
           BottomNavigationBarItem(
             icon: navbarIndex != 0
                 ? SvgPicture.asset("assets/icons/document.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor!)
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedItemColor!,
+                        BlendMode.srcIn))
                 : SvgPicture.asset(
-                    
                     "assets/icons/document_filled.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedItemColor,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor!,
+                        BlendMode.srcIn),
                   ),
             tooltip: 'Home',
             label: "",
@@ -57,15 +58,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
             icon: navbarIndex != 1
                 ? SvgPicture.asset(
                     "assets/icons/award.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedItemColor!,
+                        BlendMode.srcIn),
                   )
                 : SvgPicture.asset(
                     "assets/icons/award_filled.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedItemColor,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor!,
+                        BlendMode.srcIn),
                   ),
             tooltip: 'Championship',
             label: "",
@@ -74,15 +79,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
             icon: navbarIndex != 2
                 ? SvgPicture.asset(
                     "assets/icons/calender.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedItemColor!,
+                        BlendMode.srcIn),
                   )
                 : SvgPicture.asset(
                     "assets/icons/calender_filled.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedItemColor,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor!,
+                        BlendMode.srcIn),
                   ),
             tooltip: 'Categories',
             label: "",
@@ -91,15 +100,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
             icon: navbarIndex != 3
                 ? SvgPicture.asset(
                     "assets/icons/profile.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedItemColor!,
+                        BlendMode.srcIn),
                   )
                 : SvgPicture.asset(
                     "assets/icons/profile_filled.svg",
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedItemColor,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor!,
+                        BlendMode.srcIn),
                   ),
             tooltip: 'Profile',
             label: "",

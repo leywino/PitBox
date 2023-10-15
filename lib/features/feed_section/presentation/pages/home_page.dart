@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:pit_box/core/constant/custom_icons.dart';
 import 'package:pit_box/core/constant/size.dart';
 import 'package:pit_box/core/constant/colors.dart';
 import 'package:pit_box/core/constant/sized_box.dart';
+import 'package:pit_box/features/feed_section/domain/entities/load_news_details.dart';
 import 'package:pit_box/features/feed_section/presentation/pages/news_detailed_screen.dart';
 import 'package:pit_box/features/feed_section/presentation/scrape_bloc/scrape_bloc.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -293,19 +296,47 @@ class HomePage extends StatelessWidget {
                   }
                   if (state is ScrapeDataLoadedState) {
                     final newsDataList = state.newsFeedData;
+                    final newsDetailsHiveList = state.newsDetailsDataList;
+
+                    bool hasMatchingHeadline(int index) {
+                      return newsDetailsHiveList.any((newsDetails) {
+                        return newsDetails.newsDetails?.headLine ==
+                            newsDataList[index].headLine;
+                      });
+                    }
+
                     return Column(
                       children: List.generate(
                         newsDataList.length,
                         (index) => GestureDetector(
-                          onTap: () {
-                            Navigator.push(
+                          onTap: () async {
+                            LoadNewsDetails? matchingNewsDetails;
+                            for (var newsDetails in newsDetailsHiveList) {
+                              if (newsDetails.newsDetails?.headLine ==
+                                  newsDataList[index].headLine) {
+                                matchingNewsDetails = newsDetails.newsDetails!;
+                              }
+                            }
+
+                            await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => NewsDetailedScreen(
                                     headLine: newsDataList[index].headLine!,
                                     imageUrl: newsDataList[index].imageUrl!,
                                     articleLink:
-                                        newsDataList[index].articleLink!),
+                                        newsDataList[index].articleLink!,
+                                    index: index,
+                                    alreadyLoaded: hasMatchingHeadline(index),
+                                    matchingNewsDetails:
+                                        hasMatchingHeadline(index)
+                                            ? matchingNewsDetails
+                                            : null,
+                                    onUpdate: () {
+                                      context
+                                          .read<ScrapeBloc>()
+                                          .add(LoadScrapeDataEvent());
+                                    }),
                               ),
                             );
                           },
@@ -372,6 +403,12 @@ class HomePage extends StatelessWidget {
                                           child: SvgPicture.asset(
                                             'assets/images/f1_logo.svg',
                                             width: 70,
+                                            colorFilter: ColorFilter.mode(
+                                                Theme.of(context)
+                                                    .secondaryHeaderColor,
+                                                BlendMode.srcIn),
+                                            // color: Theme.of(context)
+                                            //     .secondaryHeaderColor,
                                           ),
                                         )
                                       ],

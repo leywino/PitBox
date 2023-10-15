@@ -9,9 +9,10 @@ class ScrapeDataLoadingState extends ScrapeState {
 
 class ScrapeDataLoadedState extends ScrapeState {
   final List<NewsFeedScraped> newsFeedData;
-  ScrapeDataLoadedState(this.newsFeedData);
+  final List<NewsDetails> newsDetailsDataList;
+  ScrapeDataLoadedState(this.newsFeedData, this.newsDetailsDataList);
   @override
-  List<Object> get props => [newsFeedData];
+  List<Object> get props => [newsFeedData, newsDetailsDataList];
 }
 
 class ScrapeDataErrorState extends ScrapeState {
